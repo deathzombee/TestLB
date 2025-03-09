@@ -49,5 +49,23 @@ public class LeaderboardWebSocketTest {
 
         session.close();
     }
-}
 
+    @Test
+    public void testInvalidInputHandling() throws Exception {
+        messageLatch = new CountDownLatch(1);
+
+        WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+        Session session = container.connectToServer(TestClient.class, new URI(SERVER_URI));
+
+        // Send an invalid JSON message
+        session.getBasicRemote().sendText("Invalid JSON");
+
+        // Wait for a response
+        boolean messageReceived = messageLatch.await(3, TimeUnit.SECONDS);
+
+        // Check if message was received
+        assertFalse(messageReceived, "Server should not respond to invalid JSON message");
+
+        session.close();
+    }
+}
