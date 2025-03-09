@@ -31,6 +31,10 @@ dependencies {
 
     // Testing dependencies
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.1")
+
+
+    // Gson library for JSON parsing
+    implementation("com.google.code.gson:gson:2.8.8")
 }
 
 testing {
